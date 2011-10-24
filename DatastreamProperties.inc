@@ -273,7 +273,7 @@ class DatastreamProperties {
         'view' => $view,
         'view_function' => $view_function,
         'download' => $download,
-        'tn' => $this->getThumbnail($dsid, $mime)
+        'tn' => url($this->getThumbnail($dsid, $mime))
       );
     }
     return array($data, $total);
@@ -506,7 +506,6 @@ class DatastreamProperties {
    *   A URL to the image, or FALSE if none was found.
    */
   private function getThumbnailFromRELSINT($dsid) {
-    global $base_url;
     if ($this->item->datastreams['RELS-INT']) {
       $rels_int = $this->item->get_datastream_dissemination("RELS-INT");
       if (trim($rels_int) != '') {
@@ -519,7 +518,7 @@ class DatastreamProperties {
           if (isset($attributes['resource'])) {
             $dsid = sprintf("%s", $attributes['resource']);
             $dsid = preg_filter('/^.*\/([^\/]*)$/', '$1', $dsid);
-            return "$base_url/fedora/repository/{$this->pid}/{$dsid}";
+            return base_path() . "fedora/repository/{$this->pid}/{$dsid}";
           }
         }
       }
@@ -530,11 +529,9 @@ class DatastreamProperties {
   /**
    * Gets the url from this datastreams dsid, if it exists.
    * 
-   * @global string $base_url
    * @return string
    */
   private function getUrlFromName() {
-    global $base_url;
     if (preg_match('/\..+$/i', $this->dsid) > 0) { // Has extension.
       $dsid = preg_replace('/\..+$/i', '-tn.jpg', $this->dsid);
       if (array_key_exists($dsid, $this->item->datastreams)) {
@@ -571,7 +568,7 @@ class DatastreamProperties {
       'video/mp4' => 'video.png',
       'video/quicktime' => 'video.png',
     );
-    $module_path = '/' . drupal_get_path('module', 'content_model_viewer');
+    $module_path = base_path() . drupal_get_path('module', 'content_model_viewer');
     $image_path = $module_path . '/images/mime/';
     if (isset($mime_type_images[$mime])) {
       return $image_path . $mime_type_images[$mime];
@@ -586,7 +583,7 @@ class DatastreamProperties {
    *   A URL to the default image.
    */
   private function getDefaultIcon() {
-    $module_path = '/' . drupal_get_path('module', 'content_model_viewer');
+    $module_path = base_path() . drupal_get_path('module', 'content_model_viewer');
     $image_path = $module_path . '/images/mime/';
     return $image_path . 'default.png';
   }
