@@ -377,12 +377,11 @@ function content_model_viewer_get_viewer_properties($mime) {
  * @param array $variables
  */
 function template_preprocess_content_model_viewer(array &$variables) {
-  global $base_url;
   module_load_include('inc', 'fedora_repository', 'api/fedora_item');
   $pid = $variables['pid'];
   $item = new Fedora_Item($pid);
   $variables['label'] = $item->objectProfile->objLabel;
-  $variables['base_url'] = $base_url;
+  $variables['base_url'] = base_path();
   $variables['dsid'] = 'SWF';
   $variables['view_function'] = 'loadFlexPlayer';
   $variables['paths'] = array(

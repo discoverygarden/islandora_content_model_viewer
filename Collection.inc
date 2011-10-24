@@ -311,13 +311,12 @@ class Collection {
    * @return array
    */
   private function populate($results) {
-    global $base_url;
     $module_path = drupal_get_path('module', 'content_model_viewer');
     $image_path = '/' . $module_path . '/images';
     foreach ($results as &$result) {
       $pid = $result['pid'];
       $content_model_pid = $this->getContentModelPid($pid);
-      $result['link'] = "$base_url/fedora/repository/$pid";
+      $result['link'] = base_path() . "fedora/repository/$pid";
       $result['tn'] = $image_path . '/object.png';
       $result['description'] = $this->getDescription($pid);
     }

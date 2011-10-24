@@ -41,8 +41,7 @@ class BasicImageViewer extends AbstractViewer {
    *   The rendered HTML required for showing this viewer.
    */
   public function render($pid, $dsid) {
-    global $base_url;
-    $url = $base_url . '/viewer/' . $pid . '/' . $dsid . '/download';
+    $url = base_path() . 'viewer/' . $pid . '/' . $dsid . '/download';
     return "<img src='$url'/>";
   }
 
