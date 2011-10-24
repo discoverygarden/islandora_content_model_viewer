@@ -311,7 +311,7 @@ class Collection {
    * @return array
    */
   private function populate($results) {
-    $module_path = drupal_get_path('module', 'content_model_viewer');
+    $module_path = base_path() . drupal_get_path('module', 'content_model_viewer');
     $image_path = '/' . $module_path . '/images';
     foreach ($results as &$result) {
       $pid = $result['pid'];
