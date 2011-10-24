@@ -273,7 +273,7 @@ class DatastreamProperties {
         'view' => $view,
         'view_function' => $view_function,
         'download' => $download,
-        'tn' => url($this->getThumbnail($dsid, $mime))
+        'tn' => $this->getThumbnail($dsid, $mime)
       );
     }
     return array($data, $total);
