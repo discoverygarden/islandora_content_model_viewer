@@ -319,6 +319,26 @@ function content_model_viewer_get_registered_content_model_viewer($pid) {
 }
 
 /**
+ * Checks if there is a registered Content Model Viewer for the given Object.
+ * 
+ * @param string $pid
+ *   The Fedora Objects pid.
+ * 
+ * @return boolean 
+ *   TRUE if there is a registered Content Model Viewer.
+ */
+function content_model_viewer_has_registered_content_model_viewer($pid) {
+  $model_pid = content_model_viewer_get_content_model_pid($pid);
+  $models = module_invoke_all('register_content_models_for_viewer');
+  foreach ($models as $key => $model) {
+    if ($key == $model_pid) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
  * Get the pid of this objects content model.
  * 
  * @param string $pid
@@ -428,6 +448,10 @@ function content_model_viewer($pid = NULL) {
     exit();
   }
   // End of COPY
+  if (!content_model_viewer_has_registered_content_model_viewer($pid)) {
+    return repository_page($pid);
+  }
+  // End of redirect to old fedora/repository handler
   $pid = isset($pid) ? $pid : variable_get('fedora_repository_pid', 'islandora:root');
   $path = drupal_get_path('module', 'content_model_viewer');
   $js_path = $path . '/js';
@@ -439,8 +463,8 @@ function content_model_viewer($pid = NULL) {
   else {
     /* Load ExtJS */
     $ext_path = $path . '/lib/ext';
-//drupal_add_js($ext_path . '/ext-all.js');
-    drupal_add_js($ext_path . '/ext-all-debug-w-comments.js');
+    drupal_add_js($ext_path . '/ext-all.js');
+    //drupal_add_js($ext_path . '/ext-all-debug-w-comments.js');
     drupal_add_css($path . '/css/Clear.css');
     drupal_add_css($ext_path . '/resources/css/ext-all-gray.css', 'theme', 'all');
     /* Load Panels/Widgets */
