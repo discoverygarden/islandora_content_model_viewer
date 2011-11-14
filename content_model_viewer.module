@@ -217,10 +217,17 @@ function content_model_viewer_content_model_datastream_viewers() {
     'file' => 'viewers/Djatoka',
     'class' => 'DjatokaViewer',
   );
+  $text = array(
+    'type' => 'inc',
+    'module' => 'content_model_viewer',
+    'file' => 'viewers/TextViewer',
+    'class' => 'TextViewer',
+  );
   return array(
     'application/x-shockwave-flash' => $flexpaper,
     'application/shockwave-flash' => $flexpaper,
     'text/xml' => $xml,
+    'text/plain' => $text,
     'application/rdf+xml' => $xml,
     'image/jpeg' => $image_basic,
     'image/gif' => $image_basic,
@@ -453,6 +460,14 @@ function content_model_viewer($pid = NULL) {
   }
   // End of redirect to old fedora/repository handler
   $pid = isset($pid) ? $pid : variable_get('fedora_repository_pid', 'islandora:root');
+  // Add Bread Crumbs
+  module_load_include('inc', 'fedora_repository', 'ObjectHelper');
+  $breadcrumbs = array();
+  $objectHelper = new ObjectHelper();
+  
+  $objectHelper->getBreadcrumbs($pid, $breadcrumbs);
+  drupal_set_breadcrumb(array_reverse($breadcrumbs));
+  // End Add Bread Crumbs
   $path = drupal_get_path('module', 'content_model_viewer');
   $js_path = $path . '/js';
   if (isset($_POST['action'])) { // Render Metadata Form
