@@ -464,7 +464,7 @@ function content_model_viewer($pid = NULL) {
   module_load_include('inc', 'fedora_repository', 'ObjectHelper');
   $breadcrumbs = array();
   $objectHelper = new ObjectHelper();
-  
+
   $objectHelper->getBreadcrumbs($pid, $breadcrumbs);
   drupal_set_breadcrumb(array_reverse($breadcrumbs));
   // End Add Bread Crumbs

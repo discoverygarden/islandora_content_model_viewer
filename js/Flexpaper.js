@@ -3,10 +3,9 @@
  * and open the template in the editor.
  */
 function loadFlexPlayer(pid, dsid) {
-    var base_url = $('#base_url').text();
-    var swfURL = base_url + '/viewer/' + pid + '/' + dsid + '/download';
+    var swfURL = window.location.origin + Drupal.settings.basePath + 'viewer/' + pid + '/' + dsid + '/download';
     var swfVersionStr = "10.0.0";
-    var xiSwfUrlStr = "/sites/all/libraries/flexpaper/js/swfobject/expressInstall.swf";
+    var xiSwfUrlStr = Drupal.settings.basePath + "sites/all/libraries/flexpaper/js/swfobject/expressInstall.swf";
     var flashvars = {
         SwfFile : escape(swfURL),
         Scale : 0.6,
@@ -39,7 +38,7 @@ function loadFlexPlayer(pid, dsid) {
     attributes.id = "FlexPaperViewer";
     attributes.name = "FlexPaperViewer";
     swfobject.embedSWF(
-        base_url + "/sites/all/libraries/flexpaper/FlexPaperViewer.swf", "playerFlexPaper",
+        Drupal.settings.basePath + "sites/all/libraries/flexpaper/FlexPaperViewer.swf", "playerFlexPaper",
         "100%", "857", swfVersionStr, xiSwfUrlStr, flashvars, params, attributes);
     swfobject.createCSS("#playerFlexPaper", "display:block;text-align:left;");
 }
