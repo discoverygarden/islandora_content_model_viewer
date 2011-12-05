@@ -4,6 +4,8 @@
   <div style="display:none" id="properties">
     <div id="pid"><?php print $pid; ?></div>
     <div id="dsid"><?php print $dsid; ?></div>
+    <div id="width"><?php print $width; ?></div>
+    <div id="height"><?php print $height; ?></div>
     <div id="view_function"><?php print $view_function; ?></div>
     <div id="base_url"><?php print $base_url; ?></div>
     <div id="object_overview_url"><?php print check_url(url($paths['object']['overview'])); ?></div>
