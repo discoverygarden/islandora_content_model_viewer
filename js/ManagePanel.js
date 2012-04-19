@@ -109,9 +109,30 @@ Ext.onReady(function(){
             cls: 'x-btn-text-icon',
             iconCls: 'remove-datastream-icon',
             id: 'purge-object',
-            handler: function() {
-              Ext.Msg.alert('Action Restricted', 'This action is currently restricted');
+            handler : function() {
+              Ext.Msg.show({
+                title:'Purge Object?',
+                msg: 'Are you sure you want to purge this object? This action cannot be undone.',
+                buttons: Ext.Msg.YESNO,
+                fn: function(choice) {
+                  if(choice == 'yes') {
+                    var url = ContentModelViewer.properties.url.object.purge;
+                    Ext.Ajax.request({
+                      url: url,
+                      method: 'POST',
+                      success: function(response){
+                        Ext.Msg.alert('Status', 'Successfully purged object.');
+                        location.href='fedora/repository';
+                      }
+                    });  
+                  }
+                },
+                icon: Ext.window.MessageBox.QUESTION
+              });
             }
+            //handler: function() {
+            //Ext.Msg.alert('Action Restricted', 'This action is currently restricted');
+            //}
           }]
         }],
         listeners: {
