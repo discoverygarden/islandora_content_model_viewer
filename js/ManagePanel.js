@@ -110,7 +110,7 @@ Ext.onReady(function(){
                 buttons: Ext.Msg.YESNO,
                 fn: function(choice) {
                   if(choice == 'yes') {
-                    var url = '/xacml/' + pid + '/' + dsid;
+                    var url = Drupal.settings.basePath + 'xacml/' + pid + '/' + dsid;
                     Ext.Msg.alert('Action Restricted', url);
                     location.href = url; 
                   }
