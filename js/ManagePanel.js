@@ -101,7 +101,21 @@ Ext.onReady(function(){
             iconCls: 'edit-datastream-icon',
             id: 'edit-xacml',
             handler: function() {
-              Ext.Msg.alert('Action Restricted', 'This action is currently restricted');
+              var pid = ContentModelViewer.properties.pid;
+              var models = ContentModelViewer.properties.url.object.models;
+              var dsid = (models.indexOf('islandora:collectionCModel') > -1)? 'CHILD_POLICY': 'SECURITY';
+              Ext.Msg.show({
+                title:'Edit Permissions',
+                msg: 'Open the XACML Editor (will navigate away from this page)?',
+                buttons: Ext.Msg.YESNO,
+                fn: function(choice) {
+                  if(choice == 'yes') {
+                    var url = '/xacml/' + pid + '/' + dsid;
+                    Ext.Msg.alert('Action Restricted', url);
+                    location.href = url; 
+                  }
+                }
+              });
             }
           }, {
             xtype: 'button',
