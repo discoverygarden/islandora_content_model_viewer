@@ -121,8 +121,14 @@ Ext.onReady(function(){
                       url: url,
                       method: 'POST',
                       success: function(response){
-                        Ext.Msg.alert('Status', 'Successfully purged object.');
-                        location.href='fedora/repository';
+                        var data;
+                        data = Ext.decode(response.responseText);
+                        Ext.Msg.alert('Status', data.msg);
+                        if (data.success === true) {
+                          location.href='';                          
+                        } else {
+                          // do nowt
+                        }
                       }
                     });  
                   }
