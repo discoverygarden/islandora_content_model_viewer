@@ -103,7 +103,7 @@ Ext.onReady(function(){
             handler: function() {
               var pid = ContentModelViewer.properties.pid;
               var models = ContentModelViewer.properties.url.object.models;
-              var dsid = (models.indexOf('islandora:collectionCModel') > -1)? 'CHILD_POLICY': 'SECURITY';
+              var dsid = (models.indexOf('islandora:collectionCModel') > -1)? 'CHILD_SECURITY': 'POLICY';
               Ext.Msg.show({
                 title:'Edit Permissions',
                 msg: 'Open the XACML Editor (will navigate away from this page)?',
@@ -111,7 +111,6 @@ Ext.onReady(function(){
                 fn: function(choice) {
                   if(choice == 'yes') {
                     var url = Drupal.settings.basePath + 'xacml/' + pid + '/' + dsid;
-                    Ext.Msg.alert('Action Restricted', url);
                     location.href = url; 
                   }
                 }
