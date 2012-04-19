@@ -138,10 +138,7 @@ Ext.onReady(function(){
                         data = Ext.decode(response.responseText);
                         Ext.Msg.alert('Status', data.msg);
                         if (data.success === true) {
-                          location.href='';                          
-                        } else {
-                          // do nowt
-                        }
+                          location.href = Drupal.settings.basePath + '/fedora/repository';                                          }
                       }
                     });  
                   }
@@ -149,9 +146,6 @@ Ext.onReady(function(){
                 icon: Ext.window.MessageBox.QUESTION
               });
             }
-            //handler: function() {
-            //Ext.Msg.alert('Action Restricted', 'This action is currently restricted');
-            //}
           }]
         }],
         listeners: {
