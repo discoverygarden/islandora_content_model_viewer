@@ -24,7 +24,8 @@ Ext.onReady(function(){
       properties: $('#object_properties_url').text(),
       datastreams: $('#object_datastreams_url').text(),
       members: $('#object_members_url').text(),
-      purge: $('#object_purge_url').text()
+      purge: $('#object_purge_url').text(),
+      models: $('#object_content_models').text()
     },
     datastream: {
       add: $('#datastream_add_url').text(),

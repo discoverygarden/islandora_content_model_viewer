@@ -101,7 +101,20 @@ Ext.onReady(function(){
             iconCls: 'edit-datastream-icon',
             id: 'edit-xacml',
             handler: function() {
-              Ext.Msg.alert('Action Restricted', 'This action is currently restricted');
+              var pid = ContentModelViewer.properties.pid;
+              var models = ContentModelViewer.properties.url.object.models;
+              var dsid = (models.indexOf('islandora:collectionCModel') > -1)? 'CHILD_SECURITY': 'POLICY';
+              Ext.Msg.show({
+                title:'Edit Permissions',
+                msg: 'Open the XACML Editor (will navigate away from this page)?',
+                buttons: Ext.Msg.YESNO,
+                fn: function(choice) {
+                  if(choice == 'yes') {
+                    var url = Drupal.settings.basePath + 'xacml/' + pid + '/' + dsid;
+                    location.href = url; 
+                  }
+                }
+              });
             }
           }, {
             xtype: 'button',
@@ -109,8 +122,29 @@ Ext.onReady(function(){
             cls: 'x-btn-text-icon',
             iconCls: 'remove-datastream-icon',
             id: 'purge-object',
-            handler: function() {
-              Ext.Msg.alert('Action Restricted', 'This action is currently restricted');
+            handler : function() {
+              Ext.Msg.show({
+                title:'Purge Object?',
+                msg: 'Are you sure you want to purge this object? This action cannot be undone.',
+                buttons: Ext.Msg.YESNO,
+                fn: function(choice) {
+                  if(choice == 'yes') {
+                    var url = ContentModelViewer.properties.url.object.purge;
+                    Ext.Ajax.request({
+                      url: url,
+                      method: 'POST',
+                      success: function(response){
+                        var data;
+                        data = Ext.decode(response.responseText);
+                        Ext.Msg.alert('Status', data.msg);
+                        if (data.success === true) {
+                          location.href = Drupal.settings.basePath + '/fedora/repository';                                          }
+                      }
+                    });  
+                  }
+                },
+                icon: Ext.window.MessageBox.QUESTION
+              });
             }
           }]
         }],
