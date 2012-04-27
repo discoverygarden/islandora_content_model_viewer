@@ -429,6 +429,13 @@ function template_preprocess_content_model_viewer(array &$variables) {
       'view' => "viewer/$pid/dsid/view"
     )
   );
+  // store details of the object's content model(s)
+  $model_pids = $item->objectProfile->objModels->model;
+  $models = array();
+  foreach($model_pids as $model_pid) {
+    $models[] = array_pop(preg_split('/\//',$model_pid));
+  }
+  $variables['models'] = join($models,' ');
 }
 
 /**

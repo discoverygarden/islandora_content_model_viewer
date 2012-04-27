@@ -18,6 +18,7 @@
     <div id="datastream_download_url"><?php print check_url(url($paths['datastream']['download'])); ?></div>
     <div id="datastream_view_url"><?php print check_url(url($paths['datastream']['view'])); ?></div>
     <div id="datastream_properties_url"><?php print check_url(url($paths['datastream']['properties'])); ?></div>
+    <div id="object_content_models"><?php print $models; ?></div>
   </div>
   <div style="display:none" id="datastream-download">
     <form id="datastream-download-form" method="GET" action="">
