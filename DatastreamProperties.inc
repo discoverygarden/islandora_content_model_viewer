@@ -79,7 +79,7 @@ class DerivedDatastreamResolver {
       $pattern = str_replace(array('%pid%', '%dsid%'), array($this->pid, $this->dsid), $rule['matching']);
       if (preg_match($pattern, $selection->nodeValue, $matches)) {
         $derived_dsid = array_shift($matches);
-        if (isset($this->item[$derived_dsid])) {
+        if (isset($this->item->datastreams[$derived_dsid])) {
           return $derived_dsid;
         }
       }
