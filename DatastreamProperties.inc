@@ -250,7 +250,7 @@ class DatastreamProperties {
       $created = $detailed_info->datastream->createDate;
       $view = $this->hasViewer($mime) ? $dsid : NULL; // Check if there exists a viewer for the MIME Type
       $view_function = $view ? $this->getViewFunction($dsid, $mime) : NULL;
-      $download = $dsid; // Can always download by default.
+      $download = $dsid; // Can always download by default.      
       /* @todo move this filter exclusion to the filter function... */
       if ($filter) { // Overides the defaults
         list($viewable, $downloadable) = $this->getViewDownloadPermissions($dsid, $mime);
@@ -270,6 +270,7 @@ class DatastreamProperties {
         'mime' => $mime,
         'created' => $created,
         'edit' => $this->canEditDatastream($dsid),
+        'purge' => $this->canPurgeDatastream($dsid),
         'view' => $view,
         'view_function' => $view_function,
         'download' => $download,
@@ -586,6 +587,23 @@ class DatastreamProperties {
     $module_path = base_path() . drupal_get_path('module', 'content_model_viewer');
     $image_path = $module_path . '/images/mime/';
     return $image_path . 'default.png';
+  }
+  
+  /**
+   *
+   * @return boolean
+   *  return TRUE if the datastream can be purged, FALSE otherwise.
+   */
+  private function canPurgeDatastream($dsid) {
+    // @TODO make this configurable via the admin.
+    $protected_datastreams = variable_get('content_model_vewer_protected_datastreams',array(
+      'DC',
+      'RELS-EXT',
+      'RELS-INT',
+      'MODS',
+      'EAC-CPF',
+    ));
+    return (user_access(PERM_CONTENT_MODEL_VIEWER_PURGE_DATASTREAMS) && !in_array($dsid,$protected_datastreams));
   }
 
 }

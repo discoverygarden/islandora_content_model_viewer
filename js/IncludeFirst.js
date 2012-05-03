@@ -159,6 +159,9 @@ Ext.onReady(function(){
     }, {
       name: 'edit', 
       type: 'bool'
+    }, {
+      name: 'purge',
+      type: 'bool'
     }],
     validations: [{
       type: 'inclusion', 

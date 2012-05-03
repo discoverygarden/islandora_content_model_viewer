@@ -222,7 +222,7 @@ Ext.onReady(function(){
           var button, record = selections[0];
           if(record) {
             button = Ext.getCmp('remove-datastream');
-            button.enable();
+            record.get('purge')? button.enable() : button.disable();
             button = Ext.getCmp('edit-datastream');
             record.get('edit') ? button.enable() : button.disable();
             button = Ext.getCmp('view-datastream');
