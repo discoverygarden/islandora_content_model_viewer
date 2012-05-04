@@ -311,7 +311,21 @@ class DatastreamProperties {
     }
     $state_has_changed = $state != $datastream->state;
     if ($state_has_changed) {
-      $this->item->set_datastream_state($dsid, $state);
+      $protected_datastreams = variable_get('content_model_viewer_protected_datastreams',array(
+        'DC',
+        'RELS-EXT',
+        'RELS-INT',
+        'MODS',
+        'EAC-CPF',        
+      ));
+      if ($state != 'A' && in_array($dsid,$protected_datastreams)) {
+        watchdog('content_model_viewer','Can\'t set state of datastream with DSiD %dsid to Inactive or Deleted',array(
+          '%dsid' => $dsid
+        ));
+      }
+      else {
+        $this->item->set_datastream_state($dsid, $state);
+      }
     }
     // Update Created
     $detailed_info = $this->item->get_datastream_info($dsid);
