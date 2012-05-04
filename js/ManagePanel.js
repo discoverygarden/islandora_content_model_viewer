@@ -122,6 +122,7 @@ Ext.onReady(function(){
             cls: 'x-btn-text-icon',
             iconCls: 'remove-datastream-icon',
             id: 'purge-object',
+            disabled: Drupal.settings.purgeObject === 'true',
             handler : function() {
               Ext.Msg.show({
                 title:'Purge Object?',
@@ -197,6 +198,9 @@ Ext.onReady(function(){
             }, {
               "value":"I", 
               "name":"Inactive"
+            }, {
+              "value":"D",
+              "name":"Deleted"
             }]
           }),
           queryMode: 'local',
