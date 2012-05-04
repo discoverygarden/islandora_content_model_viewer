@@ -20,6 +20,15 @@ define("PERM_CONTENT_MODEL_VIEWER_PURGE_DATASTREAMS", 'Purge Datastreams');
 define("PERM_CONTENT_MODEL_VIEWER_DOWNLOAD_DATASTREAMS", 'Download Datastreams');
 define("PERM_CONTENT_MODEL_VIEWER_MODIFY_DATASTEAM_PROPERTIES", 'Modify Datastream Properties');
 
+function content_model_viewer_init() {
+  global $user;
+  $settings = array(
+    'uid' => $user->uid,
+    'purgeObject' => user_access(PERM_CONTENT_MODEL_VIEWER_PURGE_OBJECTS)? 'true': 'false',    
+  );
+  drupal_add_js(array('content_model_viewer' => $settings),'setting');
+}
+
 /**
  * Implements Menu Hook. Registers Menus.
  */
