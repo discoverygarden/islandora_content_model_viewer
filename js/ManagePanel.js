@@ -243,9 +243,7 @@ Ext.onReady(function(){
           var dsid = e.record.get('dsid');
           var protectedDatastreams = ['DC','MODS','RELS-EXT','RELS-INT','EAC-CPF']; // should pull this from Drupal settings
           var cancel = protectedDatastreams.indexOf(dsid);
-          if (cancel > -1) {
-            return false;
-          }
+          return (cancel == -1);
         }      
       },
       store: Ext.data.StoreManager.lookup('datastreams'),
