@@ -122,6 +122,7 @@ Ext.onReady(function(){
             cls: 'x-btn-text-icon',
             iconCls: 'remove-datastream-icon',
             id: 'purge-object',
+            disabled: Drupal.settings.purgeObject === 'true',
             handler : function() {
               Ext.Msg.show({
                 title:'Purge Object?',
@@ -170,7 +171,8 @@ Ext.onReady(function(){
       region: 'center',
       selType: 'rowmodel',
       plugins: [Ext.create('Ext.grid.plugin.RowEditing', {
-        clicksToEdit: 2
+        clicksToEdit: 2,
+        pluginId: 'rowEditing'
       })],
       columns: [{
         header: 'ID',  
@@ -197,6 +199,9 @@ Ext.onReady(function(){
             }, {
               "value":"I", 
               "name":"Inactive"
+            }, {
+              "value":"D",
+              "name":"Deleted"
             }]
           }),
           queryMode: 'local',
@@ -207,10 +212,12 @@ Ext.onReady(function(){
       }, {
         header: 'Mime Type', 
         dataIndex: 'mime',
+        /*
         field:{
           xtype:'textfield',
           allowBlank:false
         },
+        */
         flex: 1
       }, {
         header: 'Date Created', 
@@ -231,6 +238,12 @@ Ext.onReady(function(){
             record.get('download') ? button.enable() : button.disable();
             // Load some info into the preview panel.
           }
+        },
+        beforeedit: function(e) {
+          var dsid = e.record.get('dsid');
+          var protectedDatastreams = ['DC','MODS','RELS-EXT','RELS-INT','EAC-CPF']; // should pull this from Drupal settings
+          var cancel = protectedDatastreams.indexOf(dsid);
+          return (cancel == -1);
         }      
       },
       store: Ext.data.StoreManager.lookup('datastreams'),
