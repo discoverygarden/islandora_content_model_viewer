@@ -319,9 +319,11 @@ class DatastreamProperties {
         'EAC-CPF',        
       ));
       if ($state != 'A' && in_array($dsid,$protected_datastreams)) {
-        watchdog('content_model_viewer','Can\'t set state of datastream with DSiD %dsid to Inactive or Deleted',array(
-          '%dsid' => $dsid
+        watchdog('content_model_viewer','Can\'t set state of datastream with DSiD %dsid to %state',array(
+          '%dsid' => $dsid, 
+          '%state' => $state,
         ));
+        return $detailed_info; // throw back the original information
       }
       else {
         $this->item->set_datastream_state($dsid, $state);
@@ -609,15 +611,22 @@ class DatastreamProperties {
    *  return TRUE if the datastream can be purged, FALSE otherwise.
    */
   private function canPurgeDatastream($dsid) {
+
     // @TODO make this configurable via the admin.
-    $protected_datastreams = variable_get('content_model_vewer_protected_datastreams',array(
+    $protected_datastreams = variable_get('content_model_viewer_protected_datastreams',array(
       'DC',
       'RELS-EXT',
       'RELS-INT',
       'MODS',
       'EAC-CPF',
     ));
-    return (user_access(PERM_CONTENT_MODEL_VIEWER_PURGE_DATASTREAMS) && !in_array($dsid,$protected_datastreams));
+    $info = $this->item->get_datastream_info($dsid);
+    $datastream_state = $info->datastream->state;
+    $can_purge = user_access(PERM_CONTENT_MODEL_VIEWER_PURGE_DATASTREAMS) && 
+      !in_array($dsid,$protected_datastreams) && 
+      'D' == $datastream_state;
+    return $can_purge;
+
   }
 
 }
