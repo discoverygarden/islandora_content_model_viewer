@@ -171,7 +171,8 @@ Ext.onReady(function(){
       region: 'center',
       selType: 'rowmodel',
       plugins: [Ext.create('Ext.grid.plugin.RowEditing', {
-        clicksToEdit: 2
+        clicksToEdit: 2,
+        pluginId: 'rowEditing'
       })],
       columns: [{
         header: 'ID',  
@@ -211,10 +212,12 @@ Ext.onReady(function(){
       }, {
         header: 'Mime Type', 
         dataIndex: 'mime',
+        /*
         field:{
           xtype:'textfield',
           allowBlank:false
         },
+        */
         flex: 1
       }, {
         header: 'Date Created', 
@@ -234,6 +237,14 @@ Ext.onReady(function(){
             button = Ext.getCmp('download-datastream');
             record.get('download') ? button.enable() : button.disable();
             // Load some info into the preview panel.
+          }
+        },
+        beforeedit: function(e) {
+          var dsid = e.record.get('dsid');
+          var protectedDatastreams = ['DC','MODS','RELS-EXT','RELS-INT','EAC-CPF']; // should pull this from Drupal settings
+          var cancel = protectedDatastreams.indexOf(dsid);
+          if (cancel > -1) {
+            return false;
           }
         }      
       },
