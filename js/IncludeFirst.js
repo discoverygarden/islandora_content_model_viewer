@@ -166,7 +166,7 @@ Ext.onReady(function(){
     validations: [{
       type: 'inclusion', 
       field: 'state',   
-      list: ['A', 'I']
+      list: ['A', 'I', 'D']
     }],
     proxy: {
       type: 'rest',
