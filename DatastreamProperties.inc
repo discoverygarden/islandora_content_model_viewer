@@ -370,6 +370,13 @@ class DatastreamProperties {
    *    array((bool)$view, (bool)$download)
    */
   private function getViewDownloadPermissions($dsid, $mime) {
+    
+    $detailed_info = $this->item->get_datastream_info($dsid);
+    $state = $detailed_info->datastream->state;
+    if ($state != 'A') {
+      return array(FALSE,FALSE);
+    }
+    
     $id = content_model_viewer_get_model_id($this->item->pid); // Custom or Default Settings.
     $result = db_fetch_array(db_query('SELECT view, download FROM {%s} WHERE id = "%d"', CONTENT_MODEL_VIEWER_SETTINGS_TABLE, $id));
     $view = $result['view'];
@@ -527,7 +534,7 @@ class DatastreamProperties {
       $rels_int = $this->item->get_datastream_dissemination("RELS-INT");
       if (trim($rels_int) != '') {
         $rels_int = new SimpleXMLElement($rels_int);
-        $description = "/rdf:RDF/rdf:Description[@rdf:about='info:fedora/{$this->pid}/{$dsid}']";
+        $description = "/rdf:RDF/rdf:Description[@rdf:about='info:fedora/{$this->item->pid}/{$dsid}']";
         $path = $description . "/*[local-name() = 'hasThumbnail']"; // hasThumbnail.
         $results = $rels_int->xpath($path);
         if (is_array($results) && count($results) > 0) {
@@ -535,7 +542,7 @@ class DatastreamProperties {
           if (isset($attributes['resource'])) {
             $dsid = sprintf("%s", $attributes['resource']);
             $dsid = preg_filter('/^.*\/([^\/]*)$/', '$1', $dsid);
-            return base_path() . "fedora/repository/{$this->pid}/{$dsid}";
+            return base_path() . "fedora/repository/{$this->item->pid}/{$dsid}";
           }
         }
       }
