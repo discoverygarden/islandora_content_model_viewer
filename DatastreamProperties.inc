@@ -534,7 +534,7 @@ class DatastreamProperties {
       $rels_int = $this->item->get_datastream_dissemination("RELS-INT");
       if (trim($rels_int) != '') {
         $rels_int = new SimpleXMLElement($rels_int);
-        $description = "/rdf:RDF/rdf:Description[@rdf:about='info:fedora/{$this->pid}/{$dsid}']";
+        $description = "/rdf:RDF/rdf:Description[@rdf:about='info:fedora/{$this->item->pid}/{$dsid}']";
         $path = $description . "/*[local-name() = 'hasThumbnail']"; // hasThumbnail.
         $results = $rels_int->xpath($path);
         if (is_array($results) && count($results) > 0) {
@@ -542,7 +542,7 @@ class DatastreamProperties {
           if (isset($attributes['resource'])) {
             $dsid = sprintf("%s", $attributes['resource']);
             $dsid = preg_filter('/^.*\/([^\/]*)$/', '$1', $dsid);
-            return base_path() . "fedora/repository/{$this->pid}/{$dsid}";
+            return base_path() . "fedora/repository/{$this->item->pid}/{$dsid}";
           }
         }
       }
