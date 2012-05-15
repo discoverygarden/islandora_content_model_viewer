@@ -240,6 +240,11 @@ Ext.onReady(function(){
         root: 'data',
         totalProperty: 'total'
       }
+    },
+    listeners: {
+      load:function() {
+        this.sort('created','ASC');
+      }
     }
   });
 });
