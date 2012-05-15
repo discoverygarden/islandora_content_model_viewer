@@ -9,6 +9,8 @@ Ext.onReady(function(){
     listeners: {
       afterrender: function() {
         console.log('Focus on ViewerPanel');
+        Ext.getCmp('datastream-selector').getSelectionModel().select(0);
+        ContentModelViewer.functions.viewSelectedDatastreamRecord();
       }
     },
     items: [{
