@@ -6,6 +6,11 @@ Ext.onReady(function(){
     layout: {
       type: 'border'
     },
+    listeners: {
+      afterrender: function() {
+        console.log('Focus on ViewerPanel');
+      }
+    },
     items: [{
       xtype: 'panel',
       region: 'center',
@@ -77,6 +82,7 @@ Ext.onReady(function(){
       items: [{
         xtype: 'dataview',
         store: Ext.data.StoreManager.lookup('files'),
+        id: 'datastream-selector',
         itemSelector: 'div.file-item',
         emptyText: 'No Files Available',
         deferEmptyText: false,
