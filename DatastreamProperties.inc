@@ -536,13 +536,14 @@ class DatastreamProperties {
         $rels_int = new SimpleXMLElement($rels_int);
         $description = "/rdf:RDF/rdf:Description[@rdf:about='info:fedora/{$this->item->pid}/{$dsid}']";
         $path = $description . "/*[local-name() = 'hasThumbnail']"; // hasThumbnail.
+watchdog('rels-int',$path);
         $results = $rels_int->xpath($path);
         if (is_array($results) && count($results) > 0) {
           $attributes = $results[0]->attributes('rdf', TRUE);
           if (isset($attributes['resource'])) {
             $dsid = sprintf("%s", $attributes['resource']);
-            $dsid = preg_replace('/^.*\/([^\/]*)$/', '$1', $dsid);
-            if ($fedora_base = variable_get('fedora_base_path', FALSE)) {
+            $dsid = preg_filter('/^.*\/([^\/]*)$/', '$1', $dsid);
+            if ($fedora_base = variable_get('fedora_base_url', FALSE)) {
               // @TODO there must be a nicer way to do this using menu items
               return $fedora_base ."/objects/{$this->item->pid}/datastreams/{$dsid}/content";
             }
