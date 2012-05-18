@@ -93,6 +93,7 @@ Ext.onReady(function(){
         itemSelector: 'div.file-item',
         emptyText: 'No Files Available',
         deferEmptyText: false,
+        id: 'overview-file-selector',
         itemTpl: new Ext.XTemplate(
           '<tpl for=".">',
           '   <div class="file-item">',
@@ -132,6 +133,8 @@ Ext.onReady(function(){
               record.get('view') ? button.enable() : button.disable();
               button = Ext.getCmp('overview-download-file');
               record.get('download') ? button.enable() : button.disable();
+              var viewerSelector = getCmp('viewer-file-selector');
+              viewerSelector.getSelectionModel().select(record);
             }
           } 
         }    
