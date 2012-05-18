@@ -9,7 +9,7 @@ Ext.onReady(function(){
     listeners: {
       afterrender: function() {
         var selectionModel = Ext.getCmp('viewer-file-selector').getSelectionModel();
-        if (!(selectionModel.selected)) {
+        if (selectionModel.selected.length == 0) {
           selectionModel.select(0);
           var record = selectionModel.selected.first();
           ContentModelViewer.functions.selectDatastreamRecord(record);
