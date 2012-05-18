@@ -133,7 +133,7 @@ Ext.onReady(function(){
               record.get('view') ? button.enable() : button.disable();
               button = Ext.getCmp('overview-download-file');
               record.get('download') ? button.enable() : button.disable();
-              var viewerSelector = getCmp('viewer-file-selector');
+              var viewerSelector = Ext.getCmp('viewer-file-selector');
               viewerSelector.getSelectionModel().select(record);
             }
           } 
