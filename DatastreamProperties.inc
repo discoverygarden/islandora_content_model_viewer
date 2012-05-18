@@ -542,7 +542,7 @@ class DatastreamProperties {
           if (isset($attributes['resource'])) {
             $dsid = sprintf("%s", $attributes['resource']);
             $dsid = preg_replace('/^.*\/([^\/]*)$/', '$1', $dsid);
-            if ($fedora_base = variable_get('fedora_base_path', FALSE)) {
+            if ($fedora_base = variable_get('fedora_base_url', FALSE)) {
               // @TODO there must be a nicer way to do this using menu items
               return $fedora_base ."/objects/{$this->item->pid}/datastreams/{$dsid}/content";
             }
