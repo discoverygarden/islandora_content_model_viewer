@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 function loadFlexPlayer(pid, dsid) {
-    var swfURL = window.location.origin + Drupal.settings.basePath + 'viewer/' + pid + '/' + dsid + '/download';
+    var swfURL = window.location.protocol + '//' + window.location.host + Drupal.settings.basePath + 'viewer/' + pid + '/' + dsid + '/download';
     var swfVersionStr = "10.0.0";
     var xiSwfUrlStr = Drupal.settings.basePath + "sites/all/libraries/flexpaper/js/swfobject/expressInstall.swf";
     var flashvars = {
