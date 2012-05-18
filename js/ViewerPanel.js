@@ -9,7 +9,7 @@ Ext.onReady(function(){
     listeners: {
       afterrender: function() {
         console.log('Focus on ViewerPanel');
-        var selectionModel = Ext.getCmp('datastream-selector').getSelectionModel();
+        var selectionModel = Ext.getCmp('viewer-file-selector').getSelectionModel();
         if (!(selectionModel.selected)) {
           selectionModel.select(0);
           var record = selectionModel.selected.first();
