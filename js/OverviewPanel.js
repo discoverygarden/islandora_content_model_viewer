@@ -134,7 +134,10 @@ Ext.onReady(function(){
               button = Ext.getCmp('overview-download-file');
               record.get('download') ? button.enable() : button.disable();
               var viewerSelector = Ext.getCmp('viewer-file-selector');
-              viewerSelector.getSelectionModel().select(record);
+              // only try to select if the "Viewer" tab's loaded
+              if (viewerSelector.getSelectionModel().store) { 
+                viewerSelector.getSelectionModel().select(record.index);
+              }
             }
           } 
         }    

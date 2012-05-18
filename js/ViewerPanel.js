@@ -9,12 +9,17 @@ Ext.onReady(function(){
     listeners: {
       afterrender: function() {
         var selectionModel = Ext.getCmp('viewer-file-selector').getSelectionModel();
+        var overviewSelectionModel = Ext.getCmp('overview-file-selector').getSelectionModel();
         if (selectionModel.selected.length == 0) {
-          selectionModel.select(0);
+          var selectIndex = 0;
+          if (overviewSelectionModel.selected.length > 0) {
+            selectIndex = overviewSelectionModel.selected.items[0].index;
+          }
+          selectionModel.select(selectIndex);
           var record = selectionModel.selected.first();
           ContentModelViewer.functions.selectDatastreamRecord(record);
-          ContentModelViewer.functions.viewSelectedDatastreamRecord();
-	}      
+          ContentModelViewer.functions.viewSelectedDatastreamRecord();            
+        }      
       }
     },
     items: [{
@@ -118,7 +123,9 @@ Ext.onReady(function(){
               button = Ext.getCmp('viewer-download-file');
               record.get('download') ? button.enable() : button.disable();
               var overviewSelector = Ext.getCmp('overview-file-selector');
-              overviewSelector.getSelectionModel().select(record);
+              if (overviewSelector.getSelectionModel().store) {
+                overviewSelector.getSelectionModel().select(record.index);                
+              }
             }
           } 
         }    
