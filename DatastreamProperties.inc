@@ -536,7 +536,6 @@ class DatastreamProperties {
         $rels_int = new SimpleXMLElement($rels_int);
         $description = "/rdf:RDF/rdf:Description[@rdf:about='info:fedora/{$this->item->pid}/{$dsid}']";
         $path = $description . "/*[local-name() = 'hasThumbnail']"; // hasThumbnail.
-watchdog('rels-int',$path);
         $results = $rels_int->xpath($path);
         if (is_array($results) && count($results) > 0) {
           $attributes = $results[0]->attributes('rdf', TRUE);

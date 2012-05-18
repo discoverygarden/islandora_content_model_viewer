@@ -8,7 +8,6 @@ Ext.onReady(function(){
     },
     listeners: {
       afterrender: function() {
-        // console.log('Focus on ViewerPanel');
         var selectionModel = Ext.getCmp('datastream-selector').getSelectionModel();
 	if (!(selectionModel.selected)) {
           selectionModel.select(0);
@@ -89,7 +88,7 @@ Ext.onReady(function(){
       items: [{
         xtype: 'dataview',
         store: Ext.data.StoreManager.lookup('files'),
-        id: 'datastream-selector',
+        id: 'viewer-file-selector',
         itemSelector: 'div.file-item',
         emptyText: 'No Files Available',
         deferEmptyText: false,
@@ -118,6 +117,8 @@ Ext.onReady(function(){
               record.get('view') ? button.enable() : button.disable();
               button = Ext.getCmp('viewer-download-file');
               record.get('download') ? button.enable() : button.disable();
+              var overviewSelector = getCmp('overview-file-selector');
+              overviewSelector.getSelectionModel().select(record);
             }
           } 
         }    
