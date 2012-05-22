@@ -61,6 +61,7 @@ Ext.onReady(function(){
               var record = selectionModel.selected.first();
               ContentModelViewer.functions.selectDatastreamRecord(record);
               ContentModelViewer.functions.viewSelectedDatastreamRecord();
+              this.up('panel').collapse();
             }
           }
         }, {
