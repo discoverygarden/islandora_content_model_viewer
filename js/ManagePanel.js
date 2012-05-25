@@ -138,8 +138,9 @@ Ext.onReady(function(){
                         var data;
                         data = Ext.decode(response.responseText);
                         Ext.Msg.alert('Status', data.msg);
-                        if (data.success === true) {
-                          location.href = Drupal.settings.basePath + '/fedora/repository';                                          }
+                        if ('Successfuly deleted object' == data.msg) {
+                          location.href = window.location.protocol + '//' + window.location.host + Drupal.settings.basePath + 'fedora/repository';                                                           
+                        }
                       }
                     });  
                   }
