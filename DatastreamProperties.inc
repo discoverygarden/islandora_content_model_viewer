@@ -543,8 +543,8 @@ class DatastreamProperties {
             $dsid = sprintf("%s", $attributes['resource']);
             $dsid = preg_filter('/^.*\/([^\/]*)$/', '$1', $dsid);
             if ($fedora_base = variable_get('fedora_base_url', FALSE)) {
-              // @TODO there must be a nicer way to do this using menu items
-              return base_path() ."viewer/{$this->item->pid}/{$dsid}/view";
+              // @TODO there must be a nicer way to do this using menu items -- try the below
+              return base_path() ."viewer/{$this->item->pid}/{$dsid}/raw";
             }
           }
         }
