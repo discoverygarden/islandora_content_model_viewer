@@ -270,6 +270,7 @@ Ext.onReady(function(){
                   xtype: 'textfield',
                   name: 'dsid',
                   fieldLabel: 'Identifier',
+                  regex: /^[\w:_][\w\d\.:_]{0,63}$/i,
                   width: 300
                 }, {
                   xtype: 'textfield',
