@@ -89,10 +89,8 @@ class Collection {
    */
   private function findAllMembers() {
     global $user;
-    if ($user->uid) {
-      $user->name;
-      $user->roles;
-    }
+    $name = ($user->uid > 0)? $user->name: 'anonymous';
+
     $query = 'select $object $title $model $parent_model $created from <#ri>
                   where
                   ((
@@ -119,7 +117,7 @@ class Collection {
     foreach ($user->roles as $role) {
       $query .= '$object <http://islandora.ca/ontology/relsext#isViewableByRole> '."'$role' or ";
     }
-    $query .= '$object <http://islandora.ca/ontology/relsext#isViewableByUser> '."'$user->name'".')';
+    $query .= '$object <http://islandora.ca/ontology/relsext#isViewableByUser> '."'$name'".')';
     $query .= '))
               minus $model <mulgara:is> <info:fedora/fedora-system:FedoraObject-3.0>
               minus $parent_model <mulgara:is> <info:fedora/fedora-system:FedoraObject-3.0>
