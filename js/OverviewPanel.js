@@ -41,6 +41,10 @@ Ext.onReady(function(){
       collapsible: true,
       split: true,
       region: 'east',
+      fbar:[{
+        xtype: 'panel',
+        html: 'Very large files may take a long time to appear in the viewer. It may be more convenient to download the file directly in these cases.',
+      }],
       dockedItems: [{
         xtype: 'toolbar',
         dock: 'top',

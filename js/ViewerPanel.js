@@ -6,6 +6,7 @@ Ext.onReady(function(){
     layout: {
       type: 'border'
     },
+    fbar: 'Objects in the rear view mirror may be closer than they appear',
     listeners: {
       afterrender: function() {
         var selectionModel = Ext.getCmp('viewer-file-selector').getSelectionModel();
@@ -44,6 +45,10 @@ Ext.onReady(function(){
       collapsed: false,
       split: true,
       region: 'east',
+      fbar:[{
+        xtype: 'panel',
+        html: 'Very large files may take a long time to appear in the viewer. It may be more convenient to download the file directly in these cases.',
+      }],
       dockedItems: [{
         xtype: 'toolbar',
         dock: 'top',
