@@ -41,10 +41,6 @@ Ext.onReady(function(){
       collapsible: true,
       split: true,
       region: 'east',
-      fbar:[{
-        xtype: 'panel',
-        html: 'Very large files may take a long time to appear in the viewer. It may be more convenient to download the file directly in these cases.',
-      }],
       dockedItems: [{
         xtype: 'toolbar',
         dock: 'top',
@@ -91,7 +87,13 @@ Ext.onReady(function(){
         xtype: 'pagingtoolbar',
         store: Ext.data.StoreManager.lookup('files'),   // same store GridPanel is using
         dock: 'bottom'
-      }],
+      },
+      {
+        xtype: 'label',
+        text: 'Please note: Very large files may take a long time to appear in the viewer. It may be more convenient to download the file directly in these cases.',
+        dock: 'bottom'
+      }
+      ],
       items: [{
         xtype: 'dataview',
         store: Ext.data.StoreManager.lookup('files'),
